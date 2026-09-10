@@ -1,0 +1,116 @@
+{
+  "realm": "abdullah-foundation",
+  "displayName": "Abdullah Foundation",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": false,
+  "roles": {
+    "realm": [
+      {
+        "id": "admin-role-id",
+        "name": "admin",
+        "description": "Administrator with full access",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "abdullah-foundation"
+      },
+      {
+        "id": "volunteer-role-id",
+        "name": "volunteer",
+        "description": "Volunteer with limited access",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "abdullah-foundation"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "foundation-web",
+      "name": "Foundation Web App",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "foundation-web-secret",
+      "redirectUris": [
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3000"
+      ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true,
+      "defaultClientScopes": [
+        "web-origins",
+        "role_list",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "email": "admin@example.com",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["admin"]
+    },
+    {
+      "username": "volunteer1",
+      "email": "volunteer1@example.com",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Volunteer",
+      "lastName": "One",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "volunteer1",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["volunteer"]
+    },
+    {
+      "username": "volunteer2",
+      "email": "volunteer2@example.com",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Volunteer",
+      "lastName": "Two",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "volunteer2",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["volunteer"]
+    }
+  ]
+}
