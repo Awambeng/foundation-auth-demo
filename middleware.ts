@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
+import { ROLES } from "@/lib/roles";
 
 // Routes that require authentication
 const protectedRoutes = ["/donations", "/admin"];
@@ -23,7 +24,7 @@ export default auth((req) => {
   const isAdminRoute = adminRoutes.some((r) => pathname.startsWith(r));
   if (isAdminRoute && session) {
     const roles = (session.user as { roles?: string[] })?.roles ?? [];
-    if (!roles.includes("admin")) {
+    if (!roles.includes(ROLES.ADMIN)) {
       return NextResponse.redirect(new URL("/unauthorized", req.url));
     }
   }
@@ -32,5 +33,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/donations/:path*", "/admin/:path*"],
+  matcher: ["/donations/:path*", "/admin/:path*", "/api/admin/:path*"],
 };

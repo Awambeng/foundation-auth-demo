@@ -73,10 +73,10 @@ export default function AdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-1">Welcome, Admin!</h1>
-      <p className="text-gray-500 mb-8">Admin Dashboard</p>
+      <h1 className="text-2xl font-bold text-white mb-1">Welcome, Admin!</h1>
+      <p className="text-gray-400 mb-8">Admin Dashboard</p>
 
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">Volunteers</h2>
+      <h2 className="text-lg font-semibold text-gray-300 mb-4">Volunteers</h2>
       {loadingVolunteers ? (
         <p className="text-gray-400 text-sm">Loading volunteers…</p>
       ) : (
@@ -87,36 +87,30 @@ export default function AdminPage() {
         <div
           className={`mt-4 p-3 rounded-lg text-sm ${
             message.includes("success")
-              ? "bg-green-50 text-green-800"
-              : "bg-red-50 text-red-800"
+              ? "bg-green-900/40 text-green-300 border border-green-700"
+              : "bg-red-900/40 text-red-300 border border-red-700"
           }`}
         >
           {message}
         </div>
       )}
 
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6">
         <button
           onClick={() => setShowForm(!showForm)}
           className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 font-medium"
         >
           Create Volunteer
         </button>
-        <button
-          onClick={() => router.push("/donations")}
-          className="bg-gray-200 text-gray-800 px-5 py-2 rounded-lg hover:bg-gray-300 font-medium"
-        >
-          View Donations
-        </button>
       </div>
 
       {showForm && (
         <form
           onSubmit={handleCreateVolunteer}
-          className="mt-6 bg-white rounded-lg shadow p-6 max-w-md space-y-4"
+          className="mt-6 bg-[#2d2d2d] rounded-lg shadow p-6 max-w-md space-y-4 border border-gray-700"
         >
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Name
             </label>
             <input
@@ -124,11 +118,11 @@ export default function AdminPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-[#393939] border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
-          </div>
+            </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Email
             </label>
             <input
@@ -136,7 +130,7 @@ export default function AdminPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-[#393939] border border-gray-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <button

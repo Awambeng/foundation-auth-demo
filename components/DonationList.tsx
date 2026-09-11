@@ -10,12 +10,15 @@ export default function DonationList() {
   return (
     <div className="space-y-4">
       {DONATIONS.map((d) => (
-        <div key={d.id} className="bg-white rounded-lg shadow p-5 flex justify-between items-center">
+        <div
+          key={d.id}
+          className="bg-[#2d2d2d] rounded-lg shadow p-5 flex justify-between items-center border border-gray-700"
+        >
           <div>
-            <p className="font-semibold text-gray-800">Donation #{d.id}</p>
-            <p className="text-sm text-gray-500">Donor: {d.donor}</p>
+            <p className="font-semibold text-white">Donation #{d.id}</p>
+            <p className="text-sm text-gray-400">Donor: {d.donor}</p>
           </div>
-          <span className="text-lg font-bold text-green-700">
+          <span className="text-lg font-bold text-green-400">
             {d.amount.toLocaleString()} {d.currency}
           </span>
         </div>

@@ -43,10 +43,10 @@ A clean demonstration of **Keycloak as Identity Provider** with **Auth.js handli
 
 The application uses **two different clients** for **two different things**:
 
-| Client | Realm | Purpose |
-|--------|-------|---------|
-| `foundation-web` | `abdullah-foundation` | OIDC login for users (standard flow) |
-| `admin-cli` | `master` | Keycloak Admin API (server-side only) |
+| Client           | Realm                 | Purpose                               |
+| ---------------- | --------------------- | ------------------------------------- |
+| `foundation-web` | `abdullah-foundation` | OIDC login for users (standard flow)  |
+| `admin-cli`      | `master`              | Keycloak Admin API (server-side only) |
 
 **`foundation-web`** is our application's OIDC client. Users authenticate through it via the standard OAuth authorization code flow. Auth.js uses this client to sign users in and manage sessions.
 
@@ -113,7 +113,7 @@ The app runs on `http://localhost:3000`.
 ## Demo Flow
 
 1. Open http://localhost:3000
-2. Click **Login with Keycloak**
+2. Click **Sign in with Keycloak**
 3. Log in as `admin` / `admin` → lands on **Admin Dashboard**
 4. See volunteer list fetched from Keycloak
 5. Click **Create Volunteer** to add a new volunteer via Keycloak Admin API
@@ -140,14 +140,25 @@ requireRole("admin") in server components → redirects if missing
 
 Roles are **never hardcoded**. They are always read from the Keycloak JWT.
 
+Role names live in **`lib/roles.ts`** as a single source of truth, imported by both server and client code:
+
+```typescript
+export const ROLES = {
+  ADMIN: "admin",
+  VOLUNTEER: "volunteer",
+} as const;
+```
+
+Keycloak-internal roles (`default-roles-*`, `uma_authorization`, `offline_access`) are filtered out in `auth.ts` before they reach the session.
+
 ## Authorization Layers
 
 Two layers of server-side protection:
 
-| Layer | Where | What it does |
-|-------|-------|-------------|
-| `middleware.ts` | Every matching request | Checks auth + admin role before the page loads |
-| `requireRole()` | Server Components & API Routes | Double-checks auth + role inside the handler |
+| Layer           | Where                          | What it does                                   |
+| --------------- | ------------------------------ | ---------------------------------------------- |
+| `middleware.ts` | Every matching request         | Checks auth + admin role before the page loads |
+| `requireRole()` | Server Components & API Routes | Double-checks auth + role inside the handler   |
 
 This means even if middleware is somehow bypassed, the page handler itself denies access.
 
@@ -177,6 +188,7 @@ This means even if middleware is somehow bypassed, the page handler itself denie
 │   ├── DonationList.tsx              # Mock donation data display
 │   └── VolunteerList.tsx             # Volunteer table (accepts props)
 ├── lib/
+│   ├── roles.ts                      # Role constants (single source of truth)
 │   ├── auth-helpers.ts               # DRY auth/authorization helpers
 │   ├── keycloak-admin.ts             # Keycloak Admin API client
 │   └── types.ts                      # Shared TypeScript types
